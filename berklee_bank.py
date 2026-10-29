@@ -69,7 +69,7 @@ Side Effects: do you want to deposit, withdraw, check balance, quit (they type a
 Return: string the user typed in
 '''
 def display_menu():
-    choice = input("Do you want to: deposit, withdraw, balance or quit?")
+    choice = input("Do you want to: deposit, withdraw, balance or quit? ")
     return choice
     
 
@@ -84,8 +84,8 @@ Return: none
 def check_balance(username):
     if bank_dict.get(username):
         users_values = bank_dict.get(username)
-        balance = user_values.get("balance")
-        print("Your balance is: " balance)
+        balance = users_values.get("balance")
+        print("Your balance is: ", balance)
     
     return None
     
@@ -139,7 +139,7 @@ Side Effects: print "thank you"
 Return: none
 '''
 def quit_atm():
-    pass
+    print("Thank you for banking with us!")
 
 def run_tests():
     withdraw_money("Priya") # asks for amount, if 200 fail
@@ -152,3 +152,32 @@ def run_tests():
     verify_identity("Priya", "4821") # Expect successful log in
     verify_identity("Priya", "0000") # expect fail log in
 
+
+def main(): 
+    welcome_message()
+    name = input_name()
+    pin = input_pin()
+    valid = verify_identity(name, pin)
+    if not valid: 
+        return
+
+    while True: 
+        users_choice = display_menu()
+        if users_choice == "balance": 
+            check_balance(name)
+
+        elif users_choice == "withdraw": 
+            withdraw_money(name)
+
+        elif users_choice == "deposit":
+            deposit_money(name)
+
+        elif users_choice == "quit":
+            quit_atm()
+            break
+
+        else:
+            print("You can't choose that..")
+
+
+main()
